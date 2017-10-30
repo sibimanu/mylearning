@@ -1,0 +1,101 @@
+
+minikube
+
+minikube start
+kubectl config use-context minikube
+minikube addons enable heapster
+minikube dashboard
+minikube ip
+minikube version
+minikube stop
+minikube status
+minikube ssh
+minikube get-k8s-versions
+kubectl config use-context minikube
+
+minikube addons open heapster
+minikube start --kubernetes-version v1.7.3
+
+
+
+
+
+
+
+Kubernetes commands
+-------------------------------------------------------------
+
+Namespace:
+-------------------------------------------------------------
+
+kubectl get namespaces --show-labels
+kubectl create -f C:\MyLearning\k8s\namespace-development.json
+kubectl create -f C:\MyLearning\k8s\namespace-production.json
+kubectl delete namespace <namespace> <namespace>
+
+kubectl get nodes -o wide
+
+Deploy/Update/Scale
+
+kubectl apply -f C:\MyLearning\k8s\1nginx-deploy.yaml
+kubectl apply -f C:\MyLearning\k8s\2nginx-update.yaml
+kubectl apply -f C:\MyLearning\k8s\3nginx-scale.yaml
+kubectl scale deployments/ngnix-deploy --replicas=8
+
+
+
+Scaling the deployments:
+------------------------
+kubectl get deployments
+kubectl describe deployments ngnix-deploy
+kubectl scale deployments/ngnix-deployment --replicas=4
+
+
+
+
+kubectl get pods -l app=nginx -o wide --show-labels
+kubectl get pods -l app=nginx -o wide --show-labels
+kubectl get pods --selector="app=nginx" --output=wide
+
+
+
+kubectl get replicasets
+kubectl describe replicasets
+
+kubectl expose deployment nginx-deploy --type=NodePort --name=nginx-service
+
+
+kubectl expose deployment nginx-1.8 --type=NodePort --name=nginx-service-18
+kubectl expose deployment nginx-latest --type=NodePort --name=nginx-service-latest
+
+kubectl describe services nginx-service-18
+kubectl describe services nginx-service-latest
+
+
+
+kubectl get services --namespace=kube-system
+
+
+
+
+Auto-scaling
+
+https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+
+kubectl run php-apache --image=gcr.io/google_containers/hpa-example --requests=cpu=200m --expose --port=80
+
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+
+kubectl run -i --tty load-generator --image=busybox /bin/sh
+
+Hit enter for command prompt
+
+$ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+
+Ctl-Ctl-C
+
+kubectl get hpa
+
+kubectl get deployment php-apache
+
+
