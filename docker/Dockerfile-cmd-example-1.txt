@@ -1,0 +1,45 @@
+########################################################
+# Dockerfile to demonstrate the behaviour of CMD
+########################################################
+# Build from base image busybox:latest
+FROM busybox:latest
+# Author: Dr. Peter
+MAINTAINER Dr. Peter <peterindia@gmail.com>
+# Set command for CMD
+CMD ["echo", "Dockerfile CMD demo"] 
+
+
+docker run -d ubuntu /bin/bash -c "while true; do date; sleep 5; done"
+
+docker logs <container id>
+
+
+# This is my first Dockerfile comment 
+# escape=`
+FROM busybox:latest
+MAINTAINER Mr.Jay <jay.rengasamy@outlook.com>
+CMD echo Hello World!!
+
+# Copying single file
+COPY html /var/www/
+
+# Copying multiple files
+COPY httpd.conf magic /etc/httpd/conf/
+
+#An environment variable is a key-value pair, which can be accessed by any script or application
+ENV DEBUG_LVL 3 
+ENV APACHE_LOG_DIR /var/log/apache
+
+
+
+# Copying the TAR file (web-page-config.tar) to the target image 
+# and extracting the TAR file from the root directory (/) of the target image.
+ADD web-page-config.tar / 
+
+ 
+docker build --build-arg usr=app --build-arg uid=100 .
+
+
+sudo docker run -d --name web1 nginx -p 8081:80
+sudo docker run -d --name web2 nginx -p 8082:80
+sudo docker run -d --name web3 nginx -p 8083:80
