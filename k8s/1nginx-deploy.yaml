@@ -11,6 +11,7 @@ spec:
     metadata:
       # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
       # generated from the deployment name
+      # Jayachandran
       labels:
         app: nginx
     spec:
